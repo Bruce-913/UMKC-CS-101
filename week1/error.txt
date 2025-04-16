@@ -1,0 +1,65 @@
+code:
+    1sw
+    SyntaxError: invalid decimal literal
+        
+    Reasoning: No statement of any sort is behind it and its not defined either. 
+
+Code:
+    print(greetings)
+          ^^^^^^^^^
+    NameError: name 'greetings' is not defined
+
+    Reasoning: greetings was used without being defined beforehand
+
+Code:
+    def greet()
+               ^
+    SyntaxError: expected ':'
+
+    Reasoning: function was missing a : at the end
+
+Code:
+    def greet
+             ^
+    SyntaxError: expected '('
+
+    Reasoning: No parenthesis where function was declared allowing for no parameters
+
+Code:
+    if x ===1:
+           ^
+    SyntaxError: invalid syntax
+
+    Reasoning: Written incorrectly, expected 1 less "=" sign.
+
+Code:
+    import yes
+    ModuleNotFoundError: No module named 'yes'
+
+    Reasoning: There is no module found to import with the name "yes"
+
+Code:
+    fruit.append("fruit)
+                 ^
+    SyntaxError: unterminated string literal (detected at line 19)
+    Reasoning: parenthesis was not closed
+
+Code:
+    yup = int("yes")
+    ValueError: invalid literal for int() with base 10: 'yes'
+
+    Reasoning: "yes" is not an int
+
+Code:
+    print ('Hello, World!")
+           ^
+    SyntaxError: unterminated string literal (detected at line 18)
+
+    Reasoning: quote are not matching
+
+Code:
+    print ("Hello, World!"))
+                           ^
+    SyntaxError: unmatched ')'
+
+    Reasoning: Expected another parenthesis before the second one so it could be opened and closed
