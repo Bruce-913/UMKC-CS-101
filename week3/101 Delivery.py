@@ -22,21 +22,33 @@ def order():
             if choice == 1:
                 for item, price in Chipotle_Menu.items():
                     print (f"{item} - ${price:.2f}")
+                    choice = Chipotle_Menu
                 break
             elif choice == 2:
                 for item, price in Q39_Menu.items():
                     print (f"{item} - ${price:.2f}")
+                    choice = Q39_Menu
                 break
             elif choice == 3:
+                print("Here is your first menu:")
                 for item, price in Chipotle_Menu.items():
-                    print (f"{item} - ${price:.2f}")
+                    print(f"{item} - ${price:.2f}")
+                    choice = Chipotle_Menu
+                print("Here is the second menu:")
+                for item, price in Q39_Menu.items():
+                    print(f"{item} - ${price:.2f}")
                 break
             else:
                 print("Invalid entry, type 1, 2, or 3 to see your menu.")
         except ValueError:
             print("Invalid entry. Try again")
-    food_choice = int(input("What select food would you like from this menu? 1/2/3:"))
-    # if food_choice == 1:
+    food_choice = int(input("What select food would you like from the first menu? 1/2/3:"))
+    if food_choice == 1:
+        print(choice)
+    elif food_choice == 2:
+        print(choice)
+    elif food_choice == 3:
+        print(choice)
 #this next line should include what item on the menu to get
 
 #The line after that should include the quantity of the item
