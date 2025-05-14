@@ -1,63 +1,102 @@
-# import math
-
-def order():
-    Chipotle_Menu = {
+Chipotle_Menu = {
     "Chicken Burrito": 7.95,
     "Steak Burrito Bowl": 9.30,
-    "Chicken Quesadilla": 8.50
+    "Chicken Quesadilla": 8.50,
+    "Rice Bowl": 12.99
     }
 
-    Q39_Menu = {
+Q39_Menu = {
     "Wings": 7.95,
     "Burnt End Burger": 16.50,
     "Brisket": 12.99
     }
 
-    print("Welcome to 101 delivery")
-    print("We deliver food from the following 2 restaurants:\n1- Chipotle \n2- Q39 \n3- Both restaurants")
+Mcdonalds = {
+    "Big Mac": 6.00,
+    "Fries": 2.00,
+    "Chicken Nuggets": 9.00
+}
 
+restaurants = {
+    "Chipotle": Chipotle_Menu,
+    "Q39": Q39_Menu,
+    "Mcdonalds": Mcdonalds
+}
+
+def Fees(subtotal):
+    if subtotal >= 35:
+        print("Your total is greater or equal to 35, you have free delivery!")
+    else:
+        subtotal += 10
+        print("Because your total is under $35, you will have a $10 delivery fee.")
+
+    final_total = subtotal * (1 + 4.3 / 100)
+    print(f"Your final total after fees and taxes will be ${final_total:.2f}")
+
+def print_menu(menu):
+    for x,(item, price) in enumerate(menu.items(), start=1):
+        print (f"{x}- {item} - ${price:.2f}")
+
+def quantity():
     while True:
         try:
-            choice = int(input("Enter your choice of restaurant: \n1 for Chipotle \n2 for Q39 \n3 for both\nChoice:"))
-            if choice == 1:
-                for item, price in Chipotle_Menu.items():
-                    print (f"{item} - ${price:.2f}")
-                    choice = Chipotle_Menu
-                break
-            elif choice == 2:
-                for item, price in Q39_Menu.items():
-                    print (f"{item} - ${price:.2f}")
-                    choice = Q39_Menu
-                break
-            elif choice == 3:
-                print("Here is your first menu:")
-                for item, price in Chipotle_Menu.items():
-                    print(f"{item} - ${price:.2f}")
-                    choice = Chipotle_Menu
-                print("Here is the second menu:")
-                for item, price in Q39_Menu.items():
-                    print(f"{item} - ${price:.2f}")
-                break
+            total_item = int(input("How many would you like?"))
+            if total_item <= 0:
+                print("Please enter a number greater than 0.")
             else:
-                print("Invalid entry, type 1, 2, or 3 to see your menu.")
+                break
+        except ValueError:
+            print("Invalid entry. Please enter a number.")
+    return total_item
+
+def main():
+    print("Welcome to 101 delivery")
+    print("We deliver food from the following:")
+    print()
+    for x,(restaurant) in enumerate(restaurants.keys(), start=1):
+        print (f"{x}- {restaurant}")
+    while True:
+        try:
+            num_choice = int(input("Enter your choice of restaurant:"))
+            if num_choice > len(restaurants) or num_choice <= 0:
+                print("Invalid entry. Try again")
+                continue
+
+            rest_choice = list(restaurants)[num_choice-1]
+            break
         except ValueError:
             print("Invalid entry. Try again")
-    food_choice = int(input("What select food would you like from the first menu? 1/2/3:"))
-    if food_choice == 1:
-        print(choice)
-    elif food_choice == 2:
-        print(choice)
-    elif food_choice == 3:
-        print(choice)
-#this next line should include what item on the menu to get
+    #print(restaurant)
+    #print(restaurants[rest_choice])
+    orderTotal = restaurant_order(rest_choice, restaurants[rest_choice])
+    Fees(orderTotal)
 
-#The line after that should include the quantity of the item
+def restaurant_order(rest_name, rest_menu):
+    print_menu(rest_menu)
+    subtotal = 0
+    while True:
+        try:
+            food_choice = int(input(f"What food would you like from {rest_name}"))
 
-#Then display current price of order and ask user if they want to add any more
-#   
+            if food_choice > len(rest_menu) or food_choice <= 0:
+                print("Invalid Entry. Try again.")
+                continue
 
-order()
-# def delivery_fee():
+            item = list(rest_menu.values())[food_choice-1]
+            total_item = quantity()
 
+            net_price = total_item * item
+            subtotal = subtotal + net_price
+            print(f"your current total from this menu is ${subtotal:.2f}")
+            extra = input("Would you like to add any other item from this menu? y/n").lower()
+            if extra == "y":
+                continue
+            elif extra == "n":
+                break
+            else:
+                print("Invalid entry")
+        except ValueError:
+            print("Invalid Entry. Try again")
+    return subtotal
 
-
+main()
