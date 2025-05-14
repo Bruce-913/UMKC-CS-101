@@ -13,7 +13,8 @@ Q39_Menu = {
 
 Mcdonalds = {
     "Big Mac": 6.00,
-    "Fries": 2.00
+    "Fries": 2.00,
+    "Chicken Nuggets": 9.00
 }
 
 restaurants = {
@@ -21,59 +22,7 @@ restaurants = {
     "Q39": Q39_Menu,
     "Mcdonalds": Mcdonalds
 }
-def Chipotle():
-    print_menu(Chipotle_Menu)
-    while True:
-        try:
-            food_choice = int(input("What select food would you like from the Chipotle menu? 1/2/3:"))
 
-            if food_choice > len(Chipotle_Menu) or food_choice <= 0:
-                print("Invalid Entry. Try again.")
-                continue
-
-            item = list(Chipotle_Menu.values())[food_choice-1]
-            total_item = quantity()
-
-            net_price = total_item * item
-
-            print(f"your current total from this menu is ${net_price:.2f}")
-            extra = input("Would you like to add any other item from this menu? y/n").lower()
-            if extra == "y":
-                continue
-            elif extra == "n":
-                break
-            else:
-                print("Invalid entry")
-        except ValueError:
-            print("Invalid Entry. Try again")
-    return net_price
-
-def Q39():
-    print_menu(Q39_Menu)
-    while True:
-        try:
-            food_choice = int(input("What select food would you like from the Q39 menu? 1/2/3:"))
-            if food_choice > len(Q39_Menu) or food_choice <= 0:
-                print("Invalid entry. Try again")
-                continue
-
-            item = list(Q39_Menu.values())[food_choice-1]
-            total_item = quantity()
-
-            net_price = total_item * item
-
-            print(f"your current total from this menu is ${net_price:.2f}")
-            extra = input("Would you like to add any other item from this menu? y/n").lower()
-            if extra == "y":
-                continue
-            elif extra == "n":
-                break
-            else:
-                print("Invalid entry")
-        except ValueError:
-            print("Invalid Entry. Try again")
-    return net_price
-            
 def Fees(subtotal):
     if subtotal >= 35:
         print("Your total is greater or equal to 35, you have free delivery!")
@@ -100,27 +49,6 @@ def quantity():
             print("Invalid entry. Please enter a number.")
     return total_item
 
-def Order():
-    print("Welcome to 101 delivery")
-    print("We deliver food from the following 2 restaurants:\n1- Chipotle \n2- Q39 \n3- Both restaurants")
-    while True:
-        try:
-            choice = int(input("Enter your choice of restaurant: \n1 for Chipotle \n2 for Q39 \n3 for both\nChoice:"))
-            if choice == 1:
-                net_price = Chipotle()
-                break
-            elif choice == 2:
-                net_price = Q39()
-                break
-            elif choice == 3:
-                net_price = Q39() + Chipotle()
-                break
-            else:
-                print("Invalid entry, try again")
-        except ValueError:
-            print("Invalid entry. Try again")
-    Fees(net_price)
-
 def main():
     print("Welcome to 101 delivery")
     print("We deliver food from the following:")
@@ -142,8 +70,6 @@ def main():
     #print(restaurants[rest_choice])
     orderTotal = restaurant_order(rest_choice, restaurants[rest_choice])
     Fees(orderTotal)
-    
-
 
 def restaurant_order(rest_name, rest_menu):
     print_menu(rest_menu)
